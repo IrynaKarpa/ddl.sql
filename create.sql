@@ -41,4 +41,42 @@ create table contractors (
   bank_no VARCHAR(30) NOT NULL);
 create table salins (
   id_salins int not null primary key,
-  dates date not null)
+  dates date not null)create table debts 
+  (id_debts int not null primary key,
+  dates date not null,
+  summ numeric not null,
+  id_contr int not null foreign key
+  references contractors on delete no action,
+  id_salins int not null foreign key
+  references salins on delete no action)
+create table debts_repayment (
+  id_repay INT not null primary key,
+  dates date not null,
+  summ numeric not null,
+  contract_bank_no nvarchar(30),
+  id_head int not null foreign key
+  references head_office on delete no action,
+  id_debts int not null foreign key
+  references debts on delete no action)
+create table salin_details (
+  id_det int not null primary key,
+    qty numeric not null,
+    weight numeric not null,
+    price numeric not null,
+  id_salins int not null foreign key
+  references salins on delete no action,
+  id_ingr int not null foreign key
+  references ingredients on delete no action)
+create table movings (
+  id_mov INT not null PRIMARY KEY,
+  date DATE NOT NULL,
+  id_war int not null foreign key
+  references warehouses on delete no action)
+create table moving_details (
+  id_movdet INT not null PRIMARY KEY,
+  qty INT NOT NULL,
+  price NUMERIC NOT NULL,
+    id_mov int not null foreign key
+  references movings on delete no action,
+  id_ingr int not null foreign key
+  references ingredients on delete no action)

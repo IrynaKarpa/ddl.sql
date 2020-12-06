@@ -80,3 +80,38 @@ create table moving_details (
   references movings on delete no action,
   id_ingr int not null foreign key
   references ingredients on delete no action)
+create table staff (
+  id_staff INT not null PRIMARY KEY,
+  name NVARCHAR(55) NOT NULL,
+  phone NVARCHAR(14),
+  address NVARCHAR(50),
+  position NVARCHAR(20),
+  salary NUMERIC(15) NOT NULL,
+  id_shops int not null foreign key
+  references shops on delete no action)
+create table order_details (
+  id_odet INT not null PRIMARY KEY,
+  qty INT,
+  id_prod int not null foreign key
+  references products on delete no action,
+  id_order int not null foreign key
+  references orders on delete no action)
+create table composition_of_croissant (
+  id_comp INT not null PRIMARY KEY,
+    qty INT,
+  weight NUMERIC(10,2),
+  id_prod int not null foreign key
+  references products on delete no action,
+  id_ingr int not null foreign key
+  references ingredients on delete no action)
+create table salouts (
+  id_salouts INT not null PRIMARY KEY,
+    sum NUMERIC,
+  id_cust int not null foreign key
+  references customers on delete no action,
+  id_shops int not null foreign key
+  references shops on delete no action,
+  id_order int not null foreign key
+  references orders on delete no action)
+alter table composition_of_croissant
+  add constraint ch_composition check (weight>=0)
